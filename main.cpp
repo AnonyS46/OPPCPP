@@ -1,125 +1,202 @@
 #include <iostream>
-#include <math.h>
+#include <string>
+#include <stdio.h>
 
 using namespace std;
-class hinhthang
-{
-private:
-    int daylon,daybe,chieucao;
-public:
-    void Nhap1()
-    {
-        cout<< "Nhap day lon: ";  cin>>daylon;
-        cout<< "Nhap day be: ";   cin>>daybe;
-        cout<< "Nhap chieu cao: ";cin>>chieucao;
-    }
-    void Tinh1()
-    {
-        float s=((daybe+daylon)*chieucao)/2.0;
-        cout<< "Dien tich hinh thang la: "<<s;
 
-    }
-};
-class hinhtron
+class SapXep
 {
 private:
-    int r;
+    int n;
+    int *a;
 public:
-    void Nhap2()
+    void Nhap()
     {
-        cout<< "Nhap ban kinh r: "; cin>>r;
-    }
-    void Tinh2()
-    {
-        float p=3.14*2*r;
-        float s=3.14*r*r;
-        cout<< "Chu vi dien tich lan luot la: "<<p<<" va "<< s;
-    }
-};
-class Pt1
-{
-private:
-    int a,b;
-public:
-    void Nhap3()
-    {
-        cout<< "Nhap a: "; cin>>a;
-        cout<< "Nhap b: "; cin>>b;
-    }
-    void Tinh3()
-    {
-
-        if(a==0)
+        cout<< "Nhap gia tri n="; cin>>n;
+         a=new int[n];
+        for(int i=0;i<n;i++)
         {
-            if(b==0)
+            cout<< "\nNhap a["<<i<<"]=";cin>>a[i];
+        }
+    }
+    void SapXep1()
+    {
+        for(int i=0;i<n-1;i++)
+        {
+            for(int j=i+1;j<n;j++)
             {
-                cout<< "Phuong trinh vo sao nghiem";
-            }else{
-              cout<< "Phuong trinh vo nghiem";
+                if(a[i]>a[j])
+                {
+                    swap(a[i],a[j]);
+                }
             }
-        }else{
-            float x=-b*1.0/a*1.0;
-          cout<< "Nghiem cua phuong trinh la: "<<x;
         }
     }
-};
-class Pt2
-{
-private:
-    int a,b,c;
-public:
-    void Nhap4()
+    void Xuat()
     {
-        cout<< "Nhap a:"; cin>>a;
-        cout<< "Nhap b:"; cin>>b;
-        cout<< "Nhap c:"; cin>>c;
-    }
-    void Tinh4()
-    {
-        float delta=(b*b*1.0)-(4*a*c);
-        if(delta<0)
+        for(int i=0;i<n;i++)
         {
-            cout<< "Phuong trinh vo nghiem";
-        }else if(delta==0){
-            cout<< "Phuong trinh co nghiem kep="<<(-b*1.0)/2*a;
-        }else{
-            cout<< "Hai nghiem cua phuong trinh la: "<<((-b*1.0)+sqrt(delta))/2.0*a<< "va"<<((-b*1.0)-sqrt(delta))/2.0*a;
+            cout<< a[i]<<"\t";
         }
     }
 };
-class tamgiac
+class DN
 {
 private:
-    int day,chieucao;
+    string tendn;
+    string diachi;
+    int sonv;
+    int doanhthu;
 public:
-    void Nhap5()
+    void NhapDn()
     {
-        cout<< "Nhap chieu dai canh day: "; cin>>day;
-        cout<< "Nhap chieu cao: ";  cin>>chieucao;
+        fflush(stdin);
+        cout<< "Nhap ten doanh nghiep:"; getline(cin,tendn);
+        fflush(stdin);
+        cout<< "Nhap dia chi doanh nghiep:"; getline(cin,diachi);
+        fflush(stdin);
+        cout<< "Nhap so nhan vien:"; cin>>sonv;
+        cout<< "Nhap doanh thu:"; cin>>doanhthu;
+    }
+    void XuatDn()
+    {
+        cout<< "Ten DN:"<<tendn<< "\t";
+        cout<< "Dia chi:"<<diachi << "\t";
+        cout<< "So nhan vien:"<<sonv<< "\t";
+        cout<< "Doanh thu:"<<doanhthu<< "\t";
+        cout<<endl;
+    }
+};
+class HoaDon;
+class Date
+{
+private:
+    int D;
+    int M;
+    int Y;
+public:
+    friend void NhapNgay();
+    friend void XuatNgay();
+
+    friend class HoaDon;
+};
+class HangHoa
+{
+private:
+    string tenhang;
+    string mahang;
+    int soluong;
+    int gia;
+public:
+     void NhapHang()
+    {
+        fflush(stdin);
+        cout<< "Nhap ten mat hang:"; getline(cin,tenhang);
+        fflush(stdin);
+        cout<< "Nhap ma mat hang:";  getline(cin,mahang);
+        fflush(stdin);
+        cout<< "Nhap so luong:"; cin>>soluong;
+        cout<< "Nhap don gia:"; cin>>gia;
 
     }
-    void Tinh5()
+     void XuatHang()
     {
-        cout<< "Dien tich cua tam giac la: "<<1.0/2.0*day*chieucao;
-        cout<< "Chu vi dua vao lang nhang khong nho cong thuc herong";
+        cout<< "Ten mat hang:"<<tenhang<< "\t";
+        cout<< "Ma mat hang:"<<mahang<< "\t";
+        cout<< "Sp luong mat hang:"<<soluong<< "\t";
+        cout<< "Don gia mat hang:"<<gia;
+        cout<<endl;
+
     }
+
+    friend class HoaDon;
+
+};
+class HoaDon
+{
+   private:
+       string mahoadon;
+       string donvi;
+       long sotien;
+       string nguoithanhtoan;
+       Date ngay;
+       HangHoa *ds;
+   public:
+       void NhapNgay()
+    {
+        cout<< "Nhap ngay:"; cin>>ngay.D;
+        cout<< "Nhap thang:"; cin>>ngay.M;
+        cout<< "Nhap Nam:"; cin>>ngay.Y;
+    }
+    void XuatNgay()
+    {
+        cout<< "Ngay Xuat:"<<ngay.D<<"/"<<ngay.M<<"/"<<ngay.Y<<endl;
+    }
+
+    int n;
+    void NhapHD()
+    {
+        fflush(stdin);
+        cout<< "Nhap Ma Hoa Don:"; getline(cin,mahoadon);
+        fflush(stdin);
+        cout<< "Nhap Don Vi:"; getline(cin,donvi);
+        fflush(stdin);
+        cout<< "Nhap nguoi thanh toan:"; getline(cin,nguoithanhtoan);
+        fflush(stdin);
+        NhapNgay();
+
+        cout<< "Nhap so luong hang hoa da mua:"; cin>>n;
+        cout<<endl;
+        ds=new HangHoa[n];
+        for(int i=0;i<n;i++)
+        {
+            cout<< "\nNhap thong tin mat hang thu:"<<i+1<<endl;
+            ds[i].NhapHang();
+        }
+
+    }
+    void XuatHD()
+    {
+        cout<< "\n";
+        cout<< "Ma Hoa Don:"<<mahoadon<<"\t";
+        cout<< "Don vi:"<<donvi<< "\t";
+        cout<< "Nguoi thanh toan:"<<nguoithanhtoan<< "\t";
+        XuatNgay();
+        for(int i=0;i<n;i++)
+        {
+            ds[i].XuatHang();
+        }
+        long s=0;
+        for(int i=0;i<n;i++)
+        {
+           s+=ds[i].gia*ds[i].soluong;
+        }
+        cout<< "Tong gia:"<<s;
+
+
+    }
+
 };
 int main()
 {
-   // hinhthang a;
-   // a.Nhap1();
-   // a.Tinh1();
-   //hinhtron b;
-   //b.Nhap2();
-   //b.Tinh2();
-   //  Pt1 c;
-   //  c.Nhap3();
-   //  c.Tinh3();
-   //Pt2 d;
-   //d.Nhap4();
-   //d.Tinh4();
-   tamgiac  e;
-   e.Nhap5();
-   e.Tinh5();
+    HoaDon a;
+    a.NhapHD();
+    a.XuatHD();
+   /* SapXep a;
+    a.Nhap();
+    a.SapXep1();
+    a.Xuat(); */
+    /*int n;
+    cout<< "Nhap so luong doanh nghiep:"; cin>>n;
+    DN a[n];
+    for(int i=0;i<n;i++)
+    {
+        cout<< "Nhap doanh nghiep thu"<<i+1<<endl;
+        a[i].NhapDn();
+    }
+    for(int i=0;i<n;i++)
+    {
+        a[i].XuatDn();
+    } */
     return 0;
 }
